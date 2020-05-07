@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  backend:
+    image: daodao/backend:v1
+    command: java -jar ./build/libs/backEnd-0.0.1-SNAPSHOT.jar
+    volumes:
+      - ./backEnd:/app
+    ports:
+      - "5000:8080"
+    depends_on:
+      - "db"
+    networks:
+      - front-tier
+      - back-tier
+
+  frontend:
+    build: ./hello-react-google
+    command: yarn start
+    volumes:
+      - ./hello-react-google:/app
+    ports:
+      - "3333:1234"
+    depends_on:
+      - backend
+    networks:
+      - front-tier
+
+  db:
+    image: mysql:5.5
+    container_name: db
+    ports:
+      - '5555:3306'
+    environment:
+      MYSQL_DATABASE: "AWSTraining"
+      MYSQL_USER: "daodao"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+    volumes:
+      - "db-data:/var/lib/mysql"
+    networks:
+      - back-tier
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - "6666:80"
+    environment:
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+      PMA_HOST: db
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
