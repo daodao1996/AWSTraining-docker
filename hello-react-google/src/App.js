@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:5000/employees')
+    fetch('http://backend:8080/employees')
       .then(response => response.json())
       .then(data => {
         this.setState({
