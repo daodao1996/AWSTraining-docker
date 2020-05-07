@@ -18,7 +18,7 @@ class SearchButton extends React.Component{
         };
 
         console.log(employee);
-        fetch(`http://localhost:8080/employees`, {
+        fetch(`http://localhost:5000/employees`, {
             method: "POST",
             body: `${JSON.stringify(employee)}`,
             headers: {

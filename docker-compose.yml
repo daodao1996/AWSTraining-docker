@@ -51,6 +51,8 @@ services:
       MYSQL_PASSWORD: "password"
       MYSQL_ROOT_PASSWORD: "password"
       PMA_HOST: db
+    depends_on:
+      - "db"
     networks:
       - back-tier
 
