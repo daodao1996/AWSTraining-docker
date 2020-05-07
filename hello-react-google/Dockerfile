@@ -7,7 +7,9 @@ COPY yarn.lock /page
 
 RUN yarn install
 
-COPY . ./page
+COPY . .
+
+EXPOSE 1234
 
 #CMD ["yarn","install"]
 
